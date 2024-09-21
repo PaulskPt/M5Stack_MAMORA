@@ -18,8 +18,8 @@ Sketch: M5Stack_Atom_Matrix_with_OLED_and_RTC_units_on_AtomPortABC.ino
 Monitor output:
 
 WiFi:......
-WiFi Connected to: Vodafone-8D96F1
-IP address: 192.168.1.187
+WiFi Connected to: ______________
+IP address: 192.168.x.xxx
 NTP:.
 SNTP IS ENABLED
 NTP Connected.
