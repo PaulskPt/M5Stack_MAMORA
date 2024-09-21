@@ -2,7 +2,7 @@ M5Stack MAMORA is my acronym for: ```M5Stack Atom Matrix with Oled and Rtc on At
 
 To the Port A of the AtomPortABC module are connected:
 1. M5Stack OLED (SH1107);
-2. M5Stack RTC (8563);
+2. M5Stack RTC (HYM8563);
 
 By Pressing the button on top (pressing the screen down) the color of the 5x5 LEDs will change. One of the LEDs colors is BLACK (screen off).
 
@@ -17,4 +17,15 @@ Update the file secret.h with your WiFi SSID and WiFi PASSWORD. Also set the NTP
 
 Docs
 
-See the Monitor_output.txt, image(s) and a short video impression.
+See the Monitor_output.txt
+
+Images 
+
+Image(s) and a short video impression.
+
+Hardware used:
+- M5Stack Atom Matrix ESP32 Development Kit [info](https://shop.m5stack.com/products/atom-matrix-esp32-development-kit);
+- M5Stack AtomPortABC base [info](https://docs.m5stack.com/en/unit/AtomPortABC);
+- M5Stack GROVE HUB [info](https://docs.m5stack.com/en/unit/hub);
+- M5Stack OLED unit [info](https://docs.m5stack.com/en/unit/oled);
+- M5Stack RTC unit [info](https://shop.m5stack.com/products/real-time-clock-rtc-unit-hym8563)
