@@ -92,8 +92,8 @@ void upd_dt(void)
   RTC.getTime(&RTCtime);
   RTC.getDate(&RTCdate);
 
-  char sDate[] = "RTC Date Now is: ";
-  char sTime[] = "RTC Time Now is: ";
+  constexpr char sDate[] = "RTC Date Now is: ";
+  constexpr char sTime[] = "RTC Time Now is: ";
 
   sprintf(str_buffer, "%02d-%02d-%02d %3s\n",
     RTCdate.Year, RTCdate.Month, RTCdate.Date, wd[RTCdate.WeekDay]);
@@ -164,12 +164,12 @@ bool connect_NTP(void)
   {
     Serial.print('.');
   };
-  Serial.print("\nSNTP IS NOT ENABLED");
-  Serial.print("timeInfo received from NTP server: ");
+  Serial.print(F("\nSNTP IS NOT ENABLED"));
+  Serial.print(F("timeInfo received from NTP server: "));
   Serial.println(timeInfo);
 #endif
   ret = true;
-  Serial.println("\r\nNTP Connected.");
+  Serial.println(F("\r\nNTP Connected."));
   return ret;
 }
 
@@ -187,16 +187,16 @@ bool connect_WiFi(void)
   if (WiFi.status() == WL_CONNECTED) 
   {
     ret = true;
-    Serial.print("\r\nWiFi Connected to: ");
+    Serial.print(F("\r\nWiFi Connected to: "));
     Serial.println(WIFI_SSID);
     IPAddress ip;
     ip = WiFi.localIP();
-    Serial.print("IP address: ");
+    Serial.print(F("IP address: "));
     Serial.println(ip);
   }
   else
   {
-    Serial.println("\r\nWiFi connection failed.");
+    Serial.println(F("\r\nWiFi connection failed."));
   }
   return ret;
 }
@@ -204,7 +204,7 @@ bool connect_WiFi(void)
 bool set_RTC(void)
 {
   bool ret = false;
-  char s[] = "\nset_RTC(): external RTC ";
+  constexpr char s[] = "\nset_RTC(): external RTC ";
   if (WiFi.status() == WL_CONNECTED)
   {
     time_t t = time(nullptr)+1; // Advance one second.
@@ -226,14 +226,14 @@ bool set_RTC(void)
     RTC.setTime(&RTCtime);
    
     Serial.print(s);
-    Serial.print("set\n");
+    Serial.print(F("set\n"));
     M5.dis.fillpix(0x00ff00);  // show GREEN matrix
     ret = true;
   }
   else
   {
     Serial.print(s);
-    Serial.println("not set\n");
+    Serial.println(F("not set\n"));
     M5.dis.fillpix(0xff0000);  // show RED matrix
   }
   return ret;
@@ -295,9 +295,9 @@ void loop(void)
   }
   if (connect_try >= max_connect_try)
   {
-    Serial.print("\nWiFi connect try failed ");
+    Serial.print(F("\nWiFi connect try failed "));
     Serial.print(connect_try);
-    Serial.println("time. Going into infinite loop...\n");
+    Serial.println(F("time. Going into infinite loop...\n"));
     for(;;)
     {
       delay(5000);
@@ -309,7 +309,7 @@ void loop(void)
 
   if (M5.Btn.wasPressed()) // Check if the key is pressed.
   {
-    Serial.println("\nButton pressed\n");
+    Serial.println(F("\nButton pressed\n"));
     chg_matrix_clr();
   }
   delay(1000);  // Wait 1 seconds
