@@ -21,4 +21,4 @@ See the Monitor_output.txt
 
 Images 
 
-image(s) and a short video impression.
+Image(s) and a short video impression.
