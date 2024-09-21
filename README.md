@@ -15,6 +15,8 @@ File secret.h :
 
 Update the file secret.h with your WiFi SSID and WiFi PASSWORD. Also set the NTP_TIMEZONE and the NTP_SERVER_1.
 
+NTP_TIMEZONE is not (yet) used, because the script is using UTC in this moment.
+
 Docs
 
 See the Monitor_output.txt
