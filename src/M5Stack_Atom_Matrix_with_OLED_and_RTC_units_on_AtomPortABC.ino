@@ -92,8 +92,8 @@ void upd_dt(void)
   RTC.getTime(&RTCtime);
   RTC.getDate(&RTCdate);
 
-  constexpr char sDate[] = "RTC Date Now is: ";
-  constexpr char sTime[] = "RTC Time Now is: ";
+  constexpr char sDate[] = "RTC Date is: ";
+  constexpr char sTime[] = "RTC Time is: ";
 
   sprintf(str_buffer, "%02d-%02d-%02d %3s\n",
     RTCdate.Year, RTCdate.Month, RTCdate.Date, wd[RTCdate.WeekDay]);
