@@ -17,4 +17,8 @@ Update the file secret.h with your WiFi SSID and WiFi PASSWORD. Also set the NTP
 
 Docs
 
-See the Monitor_output.txt, image(s) and a short video impression.
+See the Monitor_output.txt
+
+Images 
+
+image(s) and a short video impression.
