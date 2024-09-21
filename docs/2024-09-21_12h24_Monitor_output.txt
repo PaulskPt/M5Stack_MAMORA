@@ -1,0 +1,42 @@
+Saturday 2024-09-21 12h24 utc+1
+
+Platform: M5 Atom Matrix on top of a M5Stack AtomPortABC
+and following I2C devices, via a M5Stack GROVE HUB, connected to AtomPortABC, port A:
+1) M5Stack OLED unit;
+2) M5Stack RTC unit.
+
+Note: This is a new flash after the last flash bricked the Atom Matrix.
+On internet I found that I have to short 2 pads marked D0, which are to the left of the USB connecter,
+on the Atom Matrix main board. While trying to clean the solder pads of D0 I probably damaged the 
+connection for the LED Matrix board. Since then only about 3 LEDs of the Matrix board flash shortly
+but none of the LEDs of the Matrix lit under program control.
+
+
+Arduino IDE v2.3.2
+Sketch: M5Stack_Atom_Matrix_with_OLED_and_RTC_units_on_AtomPortABC.ino
+
+Monitor output:
+
+WiFi:......
+WiFi Connected to: Vodafone-8D96F1
+IP address: 192.168.1.187
+NTP:.
+SNTP IS ENABLED
+NTP Connected.
+
+set_RTC(): external RTC set
+RTC Date Now is: 2024-09-21 Sat
+
+RTC Time Now is: 11:24:22 utc
+
+RTC Date Now is: 2024-09-21 Sat
+
+RTC Time Now is: 11:24:23 utc
+
+RTC Date Now is: 2024-09-21 Sat
+
+RTC Time Now is: 11:24:24 utc
+
+RTC Date Now is: 2024-09-21 Sat
+
+RTC Time Now is: 11:24:25 utc
