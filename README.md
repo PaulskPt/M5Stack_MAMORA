@@ -1,8 +1,9 @@
 M5Stack MAMORA is my acronym for: ```M5Stack Atom Matrix with Oled and Rtc on AtomPortABC```.
 
 To the Port A of the AtomPortABC module are connected:
-1. M5Stack OLED (SH1107);
-2. M5Stack RTC (HYM8563);
+1. M5Stack GROVE HUB;
+2. M5Stack OLED (SH1107);
+3. M5Stack RTC (HYM8563);
 
 By Pressing the button on top (pressing the screen down) the color of the 5x5 LEDs will change. One of the LEDs colors is BLACK (screen off).
 
