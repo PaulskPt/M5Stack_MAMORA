@@ -1,0 +1,31 @@
+Saturday 2024-09-23 09h11 utc+1
+
+Platform: M5 Atom Matrix on top of a M5Stack AtomPortABC
+and following I2C devices, via a M5Stack GROVE HUB, connected to AtomPortABC, port A:
+1) M5Stack GROVE HUB;
+2) M5Stack OLED unit;
+3) M5Stack RTC unit.
+
+IDE: Arduino IDE v2.3.2
+
+
+
+Monitor output:
+
+
+M5Stack Atom Matrix with RTC unit and OLED display unit test.
+
+WiFi:..
+WiFi Connected to: ____________
+IP address: 192.168._.___
+NTP:.......
+SNTP IS ENABLED
+NTP Connected.
+
+set_RTC(): external RTC set
+RTC Date is: 2024-09-23 Monday
+RTC Time is: 08:11:50 utc
+
+RTC Date is: 2024-09-23 Monday
+RTC Time is: 08:11:51 utc
+

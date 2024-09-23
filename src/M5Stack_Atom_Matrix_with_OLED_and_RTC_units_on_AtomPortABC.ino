@@ -67,7 +67,8 @@ M5UnitOLED display(SDA, SCL, I2C_FREQ, I2C_PORT, I2C_ADDR_OLED);
 
 M5Canvas canvas(&display);
 
-static constexpr const char* wd[7] = {"Sun","Mon","Tue","Wed","Thr","Fri","Sat"};
+//static constexpr const char* wd[7] = {"sun","mon","tue","wed","thu","fri","sat"};
+static constexpr const char* wd[7] = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 char text[50];
 size_t textlen = 0;
 int textpos = 0;
@@ -94,21 +95,25 @@ void upd_dt(void)
 
   constexpr char sDate[] = "RTC Date is: ";
   constexpr char sTime[] = "RTC Time is: ";
-
-  sprintf(str_buffer, "%02d-%02d-%02d %3s\n",
-    RTCdate.Year, RTCdate.Month, RTCdate.Date, wd[RTCdate.WeekDay]);
-
+  char str_wd[10];
+  sprintf(str_buffer, "%02d-%02d-%02d ",
+    RTCdate.Year, RTCdate.Month, RTCdate.Date);
+  sprintf(str_wd, "%s", wd[RTCdate.WeekDay]);
   Serial.print(sDate);
-  Serial.println(str_buffer);
+  Serial.print(str_buffer);
+  Serial.println(str_wd);
+  display.setRotation(1);
+  canvas.setColorDepth(1); // mono color
   canvas.clear();
-  canvas.setCursor(0, 15);
+  canvas.setCursor(0, 5);
   canvas.print(str_buffer);
-
+  canvas.setCursor(0, 25);
+  canvas.print(str_wd);
   sprintf(str_buffer, "%02d:%02d:%02d utc\n", 
     RTCtime.Hours, RTCtime.Minutes, RTCtime.Seconds);
   Serial.print(sTime);
   Serial.println(str_buffer);
-  canvas.setCursor(0,45);
+  canvas.setCursor(0,50);
   canvas.print(str_buffer);
 
   display.waitDisplay();
@@ -252,6 +257,7 @@ void setup(void)
   // See: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/docs/static/pdf/static/en/unit/oled.pdf
   display.init();
   display.setRotation(1);
+  display.setTextColor(WHITE, BLACK);
   canvas.setColorDepth(1); // mono color
   canvas.setFont(&fonts::FreeSans9pt7b); // was: efontCN_14);
   canvas.setTextWrap(false);
@@ -259,6 +265,8 @@ void setup(void)
   canvas.createSprite(display.width() + 64, 72);
 
   Serial.begin(9600);
+
+  Serial.println(F("\n\nM5Stack Atom Matrix with RTC unit and OLED display unit test."));
 
   RTC.begin();
 
