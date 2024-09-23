@@ -67,7 +67,6 @@ M5UnitOLED display(SDA, SCL, I2C_FREQ, I2C_PORT, I2C_ADDR_OLED);
 
 M5Canvas canvas(&display);
 
-//static constexpr const char* wd[7] = {"sun","mon","tue","wed","thu","fri","sat"};
 static constexpr const char* wd[7] = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 char text[50];
 size_t textlen = 0;
