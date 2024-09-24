@@ -84,7 +84,7 @@ uint8_t DisBuff[2 + 5 * 5 * 3];  // Used to store RGB color values.
 
 void setBuff(uint8_t Rdata, uint8_t Gdata,
              uint8_t Bdata) {  // Set the colors of LED, and save the relevant
-                               // data to DisBuff[].  设置RGB灯的颜色
+                               // data to DisBuff[].
     DisBuff[0] = 0x05;
     DisBuff[1] = 0x05;
     for (int i = 0; i < 25; i++) {
@@ -187,7 +187,7 @@ bool connect_NTP(void)
 bool connect_WiFi(void)
 {
   bool ret = false;
-  Serial.print("\nWiFi:");
+  Serial.print(F("\nWiFi:"));
   WiFi.begin( WIFI_SSID, WIFI_PASSWORD );
 
   for (int i = 20; i && WiFi.status() != WL_CONNECTED; --i)
@@ -206,7 +206,7 @@ bool connect_WiFi(void)
     Serial.println(ip);
     byte mac[6];
     WiFi.macAddress(mac);
-    Serial.print("MAC: ");
+    Serial.print(F("MAC: "));
     for (int i = 5; i >= 0; i--) {
       Serial.print(mac[i], HEX);
       if (i > 0) Serial.print(":");
@@ -258,17 +258,6 @@ bool set_RTC(void)
   return ret;
 }
 
-#include <stdio.h>
-#include <string.h>
-
-void macToCharArray(const char* macStr, char* macArray) {
-    int values[6];
-    sscanf(macStr, "%x:%x:%x:%x:%x:%x", &values[0], &values[1], &values[2], &values[3], &values[4], &values[5]);
-    for (int i = 0; i < 6; ++i) {
-        macArray[i] = (char)values[i];
-    }
-}
-
 void getID(void)
 {
   uint64_t chipid_EfM = ESP.getEfuseMac(); // The chip ID is essentially the MAC address 
@@ -276,7 +265,7 @@ void getID(void)
   sprintf( chipid,"%04X%08X", (uint16_t)(chipid_EfM>>32), (uint32_t)chipid_EfM );
   Serial.printf("\nESP32 Chip ID = %s\n", chipid);
 
-  Serial.print("chipid mirrored (same as M5Burner MAC): ");
+  Serial.print(F("chipid mirrored (same as M5Burner MAC): "));
   // Mirror MAC address:
   for (uint8_t i = 10; i >= 0; i-=2)  // 10, 8. 6. 4. 2, 0
   {
@@ -371,4 +360,3 @@ void loop(void)
   delay(1000);  // Wait 1 seconds
   M5.update();  // Read the press state of the key.
 }
-
