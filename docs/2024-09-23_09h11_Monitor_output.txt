@@ -6,7 +6,7 @@ and following I2C devices, via a M5Stack GROVE HUB, connected to AtomPortABC, po
 2) M5Stack OLED unit;
 3) M5Stack RTC unit.
 
-IDE: Arduino IDE v2.3.2
+IDE: Arduino IDE v2.3.2 
 
 
 
