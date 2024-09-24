@@ -269,28 +269,8 @@ void macToCharArray(const char* macStr, char* macArray) {
     }
 }
 
-void setup(void) 
+void getID(void)
 {
-  // bool SerialEnable, bool I2CEnable, bool DisplayEnable
-  // Not using I2CEnable because of fixed values for SCL and SDA in M5Atom.begin:
-  M5.begin(true, false, true);  // Init Atom-Matrix(Initialize serial port, LED).
-
-  setBuff(0xff, 0x00, 0x00);
-
-  M5.dis.displaybuff(DisBuff);  // Display the DisBuff color on the LED.
-  
-  // See: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/docs/static/pdf/static/en/unit/oled.pdf
-  display.init();
-  display.setRotation(1);
-  display.setTextColor(WHITE, BLACK);
-  canvas.setColorDepth(1); // mono color
-  canvas.setFont(&fonts::FreeSans9pt7b); // was: efontCN_14);
-  canvas.setTextWrap(false);
-  canvas.setTextSize(1);
-  canvas.createSprite(display.width() + 64, 72);
-
-  Serial.begin(115200);
-
   uint64_t chipid_EfM = ESP.getEfuseMac(); // The chip ID is essentially the MAC address 
   char chipid[13] = {0};
   sprintf( chipid,"%04X%08X", (uint16_t)(chipid_EfM>>32), (uint32_t)chipid_EfM );
@@ -307,7 +287,33 @@ void setup(void)
     if (i == 0)  // Note: this needs to be here. Yes, it is strange but without it the loop keeps on running.
       break;     // idem.
   }
-  Serial.println();
+}
+
+void setup(void) 
+{
+  // bool SerialEnable, bool I2CEnable, bool DisplayEnable
+  // Not using I2CEnable because of fixed values for SCL and SDA in M5Atom.begin:
+  M5.begin(true, false, true);  // Init Atom-Matrix(Initialize serial port, LED).
+
+  setBuff(0xff, 0x00, 0x00);
+
+  M5.dis.displaybuff(DisBuff);  // Display the DisBuff color on the LED.
+  
+  // See: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/docs/static/pdf/static/en/unit/oled.pdf
+  display.init();
+
+  display.setRotation(1);
+  display.setTextColor(WHITE, BLACK);
+  canvas.setColorDepth(1); // mono color
+  canvas.setFont(&fonts::FreeSans9pt7b); // was: efontCN_14);
+  canvas.setTextWrap(false);
+  canvas.setTextSize(1);
+  canvas.createSprite(display.width() + 64, 72);
+
+  Serial.begin(115200);
+
+  getID();
+
   Serial.println(F("\n\nM5Stack Atom Matrix with RTC unit and OLED display unit test."));
 
   RTC.begin();
