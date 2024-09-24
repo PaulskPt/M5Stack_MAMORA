@@ -8,6 +8,8 @@
 * I2C device found at address 0x3c !  = OLED unit
 * I2C device found at address 0x51 !  = RTC unit
 * I2C device found at address 0x68 !  = 6-axis IMU sensor (MPU6886) (builtin the ATOM Matrix)
+*
+* To overcome some difficulties I probably have to change the board type to: "board_M5StickC"
 */
 #include <WiFi.h>
 #include <TimeLib.h>
@@ -17,6 +19,8 @@
 #include <M5UnitOLED.h>
 //#include <Wire.h>
 #include "secret.h"
+
+namespace {
 
 #define SCL 21
 #define SDA 25
@@ -67,11 +71,14 @@ M5UnitOLED display(SDA, SCL, I2C_FREQ, I2C_PORT, I2C_ADDR_OLED);
 
 M5Canvas canvas(&display);
 
+const char* boardName;
 static constexpr const char* wd[7] = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 char text[50];
 size_t textlen = 0;
 int textpos = 0;
 int scrollstep = 2;
+
+}
 
 uint8_t DisBuff[2 + 5 * 5 * 3];  // Used to store RGB color values.
 
@@ -197,6 +204,14 @@ bool connect_WiFi(void)
     ip = WiFi.localIP();
     Serial.print(F("IP address: "));
     Serial.println(ip);
+    byte mac[6];
+    WiFi.macAddress(mac);
+    Serial.print("MAC: ");
+    for (int i = 5; i >= 0; i--) {
+      Serial.print(mac[i], HEX);
+      if (i > 0) Serial.print(":");
+    }
+    Serial.println();
   }
   else
   {
@@ -243,6 +258,17 @@ bool set_RTC(void)
   return ret;
 }
 
+#include <stdio.h>
+#include <string.h>
+
+void macToCharArray(const char* macStr, char* macArray) {
+    int values[6];
+    sscanf(macStr, "%x:%x:%x:%x:%x:%x", &values[0], &values[1], &values[2], &values[3], &values[4], &values[5]);
+    for (int i = 0; i < 6; ++i) {
+        macArray[i] = (char)values[i];
+    }
+}
+
 void setup(void) 
 {
   // bool SerialEnable, bool I2CEnable, bool DisplayEnable
@@ -263,8 +289,25 @@ void setup(void)
   canvas.setTextSize(1);
   canvas.createSprite(display.width() + 64, 72);
 
-  Serial.begin(9600);
+  Serial.begin(115200);
 
+  uint64_t chipid_EfM = ESP.getEfuseMac(); // The chip ID is essentially the MAC address 
+  char chipid[13] = {0};
+  sprintf( chipid,"%04X%08X", (uint16_t)(chipid_EfM>>32), (uint32_t)chipid_EfM );
+  Serial.printf("\nESP32 Chip ID = %s\n", chipid);
+
+  Serial.print("chipid mirrored (same as M5Burner MAC): ");
+  // Mirror MAC address:
+  for (uint8_t i = 10; i >= 0; i-=2)  // 10, 8. 6. 4. 2, 0
+  {
+    Serial.print(chipid[i]);   // bytes 10, 8, 6, 4, 2, 0
+    Serial.print(chipid[i+1]); // bytes 11, 9, 7. 5, 3, 1
+    if (i > 0)
+      Serial.print(":");
+    if (i == 0)  // Note: this needs to be here. Yes, it is strange but without it the loop keeps on running.
+      break;     // idem.
+  }
+  Serial.println();
   Serial.println(F("\n\nM5Stack Atom Matrix with RTC unit and OLED display unit test."));
 
   RTC.begin();
